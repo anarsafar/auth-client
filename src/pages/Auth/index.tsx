@@ -102,7 +102,7 @@ function Authorize({ isLoginView }: AuthorizeProps) {
               <Image src={passwordIcon} />
             </InputLeftElement>
             <Input
-              type="text"
+              type="password"
               placeholder="Password"
               id="password"
               {...register('password')}

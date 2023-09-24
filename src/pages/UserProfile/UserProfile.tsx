@@ -192,62 +192,38 @@ function UserProfile(): JSX.Element {
               {userData.user?.bio}
             </Text>
           </Flex>
-          <Flex
-            justify="space-between"
-            align="center"
-            borderTop="1px solid"
-            borderColor="customGray"
-            p="1.5rem"
-            gap="1rem"
-            px={{ sm: '3rem', base: '1.3rem' }}
-          >
-            <Text
-              color="customGray"
-              fontSize="0.9rem"
-              fontWeight="500"
-              flexGrow="1"
-              flexBasis={{ sm: 0, base: 'auto' }}
-            >
-              EMAIL
-            </Text>
-            <Text
-              color="customBlack"
-              fontSize={{ sm: '1rem', base: '.8125rem' }}
-              fontWeight="500"
-              flexBasis={{ sm: 0, base: 'auto' }}
-              flexGrow={{ sm: '1.7', base: '0' }}
-            >
-              {userData.user?.email}
-            </Text>
-          </Flex>
-          <Flex
-            justify="space-between"
-            align="center"
-            borderTop="1px solid"
-            borderColor="customGray"
-            py="1.5rem"
-            gap="1rem"
-            px={{ sm: '3rem', base: '1.3rem' }}
-          >
-            <Text
-              color="customGray"
-              fontSize="0.9rem"
-              fontWeight="500"
-              flexGrow="1"
-              flexBasis={{ sm: 0, base: 'auto' }}
-            >
-              PASSWORD
-            </Text>
-            <Text
-              color="customBlack"
-              fontSize={{ sm: '1rem', base: '.8125rem' }}
-              fontWeight="500"
-              flexGrow={{ sm: '1.7', base: '0' }}
-              flexBasis={{ sm: 0, base: 'auto' }}
-            >
-              *********
-            </Text>
-          </Flex>
+          {!userData.user?.googleId &&
+            !userData.user?.facebookId &&
+            !userData.user?.githubId && (
+              <Flex
+                justify="space-between"
+                align="center"
+                borderTop="1px solid"
+                borderColor="customGray"
+                p="1.5rem"
+                gap="1rem"
+                px={{ sm: '3rem', base: '1.3rem' }}
+              >
+                <Text
+                  color="customGray"
+                  fontSize="0.9rem"
+                  fontWeight="500"
+                  flexGrow="1"
+                  flexBasis={{ sm: 0, base: 'auto' }}
+                >
+                  EMAIL
+                </Text>
+                <Text
+                  color="customBlack"
+                  fontSize={{ sm: '1rem', base: '.8125rem' }}
+                  fontWeight="500"
+                  flexBasis={{ sm: 0, base: 'auto' }}
+                  flexGrow={{ sm: '1.7', base: '0' }}
+                >
+                  {userData.user?.email}
+                </Text>
+              </Flex>
+            )}
         </Stack>
       </Box>
     </>

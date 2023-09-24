@@ -44,7 +44,9 @@ const authUser = {
     }
     return result;
   },
-  getNewAccessToken: async (accessToken: string): Promise<RefreshResponse> => {
+  getNewAccessToken: async (
+    accessToken: string | null
+  ): Promise<RefreshResponse> => {
     let result: RefreshResponse = {};
     const config = {
       headers: { Authorization: `Bearer ${accessToken}` },

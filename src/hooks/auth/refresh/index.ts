@@ -4,14 +4,36 @@ import { useToast } from '@chakra-ui/react';
 import user from '@/network/lib/user';
 import { useAuth } from '@/context/AuthContext';
 import authUser from '@/network/lib/auth';
+import { User } from '@/types/userInterface';
 
 function useRefresh() {
   const toast = useToast();
   const { setUserData } = useAuth();
   const navigate = useNavigate();
 
-  const validateTokens = async (accessToken: string) => {
+  const getUser = async (accessToken: string): Promise<void> => {
     const userResponse = await user.getUser(accessToken);
+
+    if (userResponse?.error || userResponse?.message) {
+      setUserData((prevUserData) => ({ ...prevUserData, isLoading: false }));
+    } else {
+      setUserData({
+        isLoading: false,
+        user: userResponse as User,
+        accessToken,
+      });
+    }
+  };
+
+  const validateTokens = async (accessToken: string | null) => {
+    let userResponse;
+    if (accessToken) {
+      userResponse = await user.getUser(accessToken);
+    } else {
+      setUserData((prevUserData) => ({ ...prevUserData, isLoading: true }));
+
+      userResponse = { error: 'error' };
+    }
 
     if (userResponse?.error || userResponse?.message) {
       const tokenResponse = await authUser.getNewAccessToken(accessToken);
@@ -31,13 +53,11 @@ function useRefresh() {
           duration: 2000,
         });
       } else {
-        setUserData((prevUserData) => ({
-          ...prevUserData,
-          accessToken: tokenResponse.accessToken as string,
-        }));
+        await getUser(tokenResponse.accessToken as string);
       }
     }
   };
+
   return { validateTokens };
 }
 export default useRefresh;

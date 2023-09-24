@@ -90,9 +90,9 @@ function EditProfile() {
         borderRadius=".75rem"
         border="1px solid"
         borderColor={{ sm: 'customGray', base: 'white' }}
-        my="1rem"
+        my={{ sm: '1rem', base: 0 }}
       >
-        <Box py="1.8rem" px={{ sm: '3rem', base: '1.3rem' }}>
+        <Box py={{ sm: '1.8rem', base: 0 }} px={{ sm: '3rem', base: '1.3rem' }}>
           <Stack>
             <Text color="black" fontSize="1.5rem" fontWeight="400">
               Change Info

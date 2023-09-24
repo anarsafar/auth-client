@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable import/extensions */
 import { useNavigate } from 'react-router-dom';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useLayoutEffect } from 'react';
 import { Flex, Spinner } from '@chakra-ui/react';
 import { useAuth } from '@/context/AuthContext';
 import useRefresh from '@/hooks/auth/refresh';
@@ -14,17 +15,15 @@ function ProtectedRoute({ element }: ComponentProps): ReactNode {
   const navigate = useNavigate();
   const { validateTokens } = useRefresh();
 
+  useLayoutEffect(() => {
+    validateTokens(userData.accessToken);
+  }, []);
+
   useEffect(() => {
     if (!userData.user && !userData.isLoading) {
       navigate('/auth/login');
     }
   }, [userData, navigate]);
-
-  useEffect(() => {
-    if (userData.accessToken) {
-      validateTokens(userData.accessToken);
-    }
-  }, [userData, validateTokens]);
 
   if (userData.isLoading) {
     return (
